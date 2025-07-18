@@ -1,14 +1,17 @@
 version: 0.2
+
 phases:
   install:
     commands:
-      - echo Installing dependencies...
-      - npm install
+      - echo Nothing to install for static site
   build:
     commands:
-      - echo Build started on `date`
-      - npm run build
+      - echo No build step required for HTML site
+  post_build:
+    commands:
+      - echo Uploading to S3...
+      - aws s3 sync . s3://my-static-bucket/ --delete
+
 artifacts:
   files:
     - '**/*'
-  base-directory: build  # or dist, depending on your framework
